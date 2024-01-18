@@ -21,8 +21,8 @@ export default class Particle {
 
   update(ctx) {
     this.draw(ctx)
-    // this.velocity.x *= this.friction
-    // this.velocity.y *= this.friction
+    this.velocity.x *= this.friction
+    this.velocity.y *= this.friction
 
     if (this.x + this.radius > window.innerWidth || this.x - this.radius < 0) {
       this.velocity.x = -this.velocity.x
@@ -34,6 +34,6 @@ export default class Particle {
 
     this.x += this.velocity.x
     this.y += this.velocity.y
-    // this.alpha -= 0.01
+    this.alpha -= 0.01
   }
 }

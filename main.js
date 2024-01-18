@@ -2,6 +2,16 @@ import './style.css'
 
 import Particle from './script/Particle.js'
 
+const mouse = {
+  x: undefined,
+  y: undefined,
+}
+
+window.addEventListener('mousemove', (e) => {
+  mouse.x = e.pageX
+  mouse.y = e.pageY
+})
+
 const generateParticles = (amount = 100) => {
   const particles = []
   for (let i = 0; i < amount; i++) {
@@ -21,19 +31,32 @@ const generateParticles = (amount = 100) => {
   return particles
 }
 
-const particles = generateParticles(1000)
-
 const canvas = document.querySelector('canvas')
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
 
 const ctx = canvas.getContext('2d')
 
-const animate = () => {
-  requestAnimationFrame(animate)
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
+const particles = []
 
-  // TODO: We gaan elke particle updaten (tekenen gebeurt vanzelf)
+const animate = () => {
+  console.log(mouse)
+  requestAnimationFrame(animate)
+  if (!mouse.x || !mouse.y) return
+
+  const p = new Particle(mouse.x, mouse.y, Math.random() * 5, 'blue', {
+    x: 5 - (Math.random() - 0.1) * 10,
+    y: 5 - (Math.random() - 0.1) * 10,
+  })
+
+  particles.push(p)
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  particles.forEach((particle) => {
+    if (particle.alpha <= 0) {
+      particles.splice(particles.indexOf(particle), 1)
+    }
+    particle.update(ctx)
+  })
 }
 
 animate()
