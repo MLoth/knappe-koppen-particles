@@ -32,9 +32,8 @@ const ctx = canvas.getContext('2d')
 const animate = () => {
   requestAnimationFrame(animate)
   ctx.clearRect(0, 0, canvas.width, canvas.height)
-  particles.forEach((particle) => {
-    particle.update(ctx)
-  })
+
+  // TODO: We gaan elke particle updaten (tekenen gebeurt vanzelf)
 }
 
 animate()
