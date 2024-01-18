@@ -2,6 +2,8 @@ import './style.css'
 
 import Particle from './script/Particle.js'
 
+const colors = ['red', 'orange', 'yellow', 'black']
+
 const mouse = {
   x: undefined,
   y: undefined,
@@ -20,7 +22,7 @@ const generateParticles = (amount = 100) => {
         Math.random() * window.innerWidth,
         Math.random() * window.innerHeight,
         Math.random() * 5,
-        'blue',
+        colors[Math.floor(Math.random() * colors.length)],
         {
           x: 5 - (Math.random() - 0.1) * 10,
           y: 5 - (Math.random() - 0.1) * 10,
@@ -44,10 +46,16 @@ const animate = () => {
   requestAnimationFrame(animate)
   if (!mouse.x || !mouse.y) return
 
-  const p = new Particle(mouse.x, mouse.y, Math.random() * 5, 'blue', {
-    x: 5 - (Math.random() - 0.1) * 10,
-    y: 5 - (Math.random() - 0.1) * 10,
-  })
+  const p = new Particle(
+    mouse.x,
+    mouse.y,
+    Math.random() * 5,
+    colors[Math.floor(Math.random() * colors.length)],
+    {
+      x: 5 - (Math.random() - 0.1) * 10,
+      y: 5 - (Math.random() - 0.1) * 10,
+    },
+  )
 
   particles.push(p)
   ctx.clearRect(0, 0, canvas.width, canvas.height)
